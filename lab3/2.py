@@ -12,16 +12,17 @@ rect(screen, (0, 128, 0), (0, 600, 2400, 600))
 rect(screen, (135, 206, 250), (0, 0, 2400, 600))
 
 
-def house(x, y, base_length, base_height):    #Drawing  house
+def house(x, y, base_length, base_height, window_length, window_height, k):    #Drawing  house
     #x, y - Coordinates  of  top  left  corner  of  the  house
-    #base_length, base_height - Length  and  height  of  base
+    #base_length, base_height, window_length, window_height - Length  and  height  of  base  and  window
+    #k - Constant  that  is  responsible  for  the  scale  of  house
     
-    rect(screen, (160, 82, 45), (x, y, base_length, base_height))    #Base
-    rect(screen, (0, 0, 0), (x, y, base_length, base_height), 1)    
-    polygon(screen, (255, 0, 0), [(x, y), (x+base_length, y), (x+int(base_length/2), y-180), (x, y)])    #Roof
-    polygon(screen, (0, 0, 0), [(x, y), (x+base_length, y), (x+int(base_length/2), y-180), (x, y)], 1)
-    rect(screen, (0, 206, 209), (x+int(base_length/2)-75, y+int(base_height/2)-75, 150, 150))    #Window  (50 - height  of  the  window)
-    rect(screen, (139, 69, 19), (x+int(base_length/2)-75, y+int(base_height/2)-75, 150, 150), 3)    
+    rect(screen, (160, 82, 45), (x, y, base_length*k, base_height*k))    #Base
+    rect(screen, (0, 0, 0), (x, y, base_length*k, base_height*k), 1)    
+    polygon(screen, (255, 0, 0), [(x, y), (x+base_length*k, y), (x+int(base_length*k/2), y-180), (x, y)])    #Roof
+    polygon(screen, (0, 0, 0), [(x, y), (x+base_length*k, y), (x+int(base_length*k/2), y-180), (x, y)], 1)
+    rect(screen, (0, 206, 209), (x+int(base_length*k/2)-75, y+int(base_height*k/2)-75, window_length*k, window_height*k))    #Window  
+    rect(screen, (139, 69, 19), (x+int(base_length*k/2)-75, y+int(base_height*k/2)-75, window_length*k, window_height*k), 3)     
     
 def tree(x, y, k):    #Drawing  tree
     #x, y - Coordinates  of  top  left  corner  of  the  tree trunk
@@ -50,7 +51,7 @@ def sun(x, y, radius):    #Drawing sun
     #x, y - Coordinates  of  top  left  corner  of  the  sun  centre
     circle(screen, (255, 182, 193), (x, y), radius) 
     
-house(400, 500, 500, 400)
+house(400, 500, 500, 400, 150, 150, 1)
 sun(2200, 130, 75)
 tree(1800, 550, 2)
 cloud(1300, 200, 2)
