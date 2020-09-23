@@ -23,7 +23,6 @@ def house(x, y, base_length, base_height, window_length, window_height, k):    #
     polygon(screen, (0, 0, 0), [(x, y), (x+base_length*k, y), (x+int(base_length*k/2), y-180), (x, y)], 1)
     rect(screen, (0, 206, 209), (x+int(base_length*k/2)-(window_length*k)//2, y+int(base_height*k/2)-(window_height*k)//2, window_length*k, window_height*k))    #Window  
     rect(screen, (139, 69, 19), (x+int(base_length*k/2)-(window_length*k)//2, y+int(base_height*k/2)-(window_height*k)//2, window_length*k, window_height*k), 3)    
-       
     
 def tree(x, y, k):    #Drawing  tree
     #x, y - Coordinates  of  top  left  corner  of  the  tree trunk
@@ -52,10 +51,14 @@ def sun(x, y, radius):    #Drawing sun
     #x, y - Coordinates  of  top  left  corner  of  the  sun  centre
     circle(screen, (255, 182, 193), (x, y), radius) 
     
-house(400, 500, 500, 400, 150, 150, 1)
-sun(2200, 130, 75)
-tree(1800, 550, 2)
-cloud(1300, 200, 2)
+house(200, 500, 300, 240, 100, 100, 2)    #Left  house
+house(1500, 550, 300, 240, 120, 120, 1)    #Right house
+sun(200, 130, 75)
+tree(1000, 550, 2)    #Left tree
+tree(1900, 550, 1)    #Right tree
+cloud(400, 200, 2)    #Left  cloud
+cloud(1400, 190, 1)    #Mid  cloud
+cloud(2000, 250, 2)    #Right  cloud
 
 pygame.display.update()
 clock = pygame.time.Clock()
