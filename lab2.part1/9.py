@@ -4,7 +4,7 @@ import numpy as np
 
 turtle.shape('turtle')
 
-
+print('Введите количество многоугольников')
 n = int(input())
 R = 30
 def f(n, R):

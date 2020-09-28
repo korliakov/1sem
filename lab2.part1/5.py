@@ -19,7 +19,7 @@ def f(n):
         turtle.forward(20*i)
         turtle.left(90)
         
-
+print('Введите желаемое количество квадратов')
 n = int(input())
 
 f(n)

@@ -13,8 +13,8 @@ def f(n):
         turtle.left(90)
        
         
-
-n = int(input())
+print('Введите количесвто витков')
+n = 2*int(input())
 
 f(n)
 

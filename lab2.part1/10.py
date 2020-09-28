@@ -12,7 +12,7 @@ def f():
         turtle.forward(50*2*(np.pi)/n)
         turtle.left(360/n)
 
-
+print('Введите количество лепестков')
 k = int(input())
 
 def flower(k):
