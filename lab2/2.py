@@ -80,7 +80,7 @@ def draw(i):
         zero()
     elif A[i] == 1:
         one()
-    elif A[i] == 4:input()
+    elif A[i] == 4:
         four()
     elif A[i] == 7:
         seven()
