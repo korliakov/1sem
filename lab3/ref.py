@@ -4,6 +4,9 @@ from pygame.draw import *
 
 
 def ang_rect(sc, x0, y0, w, h, angle, color, w1=0):
+    
+    '''Заготовка  для  функции  ang_rect2()'''
+    
     x1 = x0 + w * 0.5 * np.cos((np.pi / 180) * angle) - h * 0.5 * \
     np.sin((np.pi / 180) * angle)
     y1 = y0 + h * 0.5 * np.cos((np.pi / 180) * angle) + w * 0.5 * \
@@ -24,10 +27,17 @@ def ang_rect(sc, x0, y0, w, h, angle, color, w1=0):
                          int(y3)), (int(x4), int(y4))], w1)
 
 
-def ang_rect2(sc, x0, y0, w, h, angle, quarter
-              , color, w1=0):
-    """draw rectangle, using coordinates of one apex We understand which one thanks to 'quarter'. 
-    This variable says quarter, where exist our apex. """
+def ang_rect2(sc, x0, y0, w, h, angle, quarter,
+              color, w1=0):
+    
+    '''Рисует  прямоугольник.
+       quarter  -  "номер"  вершины.  Нумеруются  с  правой  нижней  против  часовой стрелки.
+       x0,  y0  -  координаты  выбранной вершины.
+       w,  h  -  ширина  и  высота  прямоугольника.
+       angle  -  угол  поворота  вокруг  выбранной вершины по часовой.
+       w1  -  толщина линии.'''
+       
+    
     by = 1
     if quarter > 2:
         by = -1
@@ -44,6 +54,11 @@ def ang_rect2(sc, x0, y0, w, h, angle, quarter
 
 
 def poster(sc, x0, y0, w, h, s, back_col, text_col, color_border):
+    
+    '''Рисует  прямоугольный  постер  с  координатами центра  x0,  y0.
+    Ширина  -  w,  высота  -  h.  s  -  строка текста, который будет на постере.
+    back_col, text_col, color_border  -  цвета  фона,  шрифта  и  границы  постера.'''
+    
     ang_rect(sc, x0, y0, w, h, 0, back_col)
     ang_rect(sc, x0, y0, w, h, 0, color_border, 1)
     f1 = pygame.font.Font(None, 100)
@@ -53,6 +68,7 @@ def poster(sc, x0, y0, w, h, s, back_col, text_col, color_border):
 
 
 def hair(r_head, r_tr, phi, n, x0, y0, sc, color_fill, color_side):
+    
     for i in range(n):
         alpha = -(90 - phi + (2 * phi * i + phi) / n)
         x1 = int(x0 + r_head * np.cos((np.pi / 180) * alpha) + \
@@ -70,6 +86,11 @@ def hair(r_head, r_tr, phi, n, x0, y0, sc, color_fill, color_side):
 
 
 def mouth(x0, y0, h_mouth, w_mouth, color, sc):
+    
+    '''Рисует  треугольный  рот.  x0,  y0  -  координаты  середины  основания.
+    h_mouth,  w_mouth  -  высота  и  ширина рта.
+    color  -  цвет  рта.'''
+    
     x1 = x0 + w_mouth / 2
     y1 = y0
     x2 = x0 - w_mouth / 2
@@ -81,12 +102,20 @@ def mouth(x0, y0, h_mouth, w_mouth, color, sc):
 
 
 def eye(x0, y0, r_pup_x, r_pup_y, r_eye_x, r_eye_y, dy_pup, color_pup, color_eye, sc):
-    ellipse(sc, color_eye, [int(x0 - r_eye_x), int(y0 - r_eye_y), int(2 * r_eye_x), int(2 * r_eye_y)])
-    ellipse(sc, BLC, [int(x0 - r_eye_x), int(y0 - r_eye_y), int(2 * r_eye_x), int(2 * r_eye_y)], 1)
-    ellipse(sc, color_pup, [int(x0 - r_pup_x), int(y0 - r_pup_y + dy_pup), int(2 * r_pup_x), int(2 * r_pup_y)])
+    
+    '''Рисует глаз.
+    x0,  y0  -  '''
+    
+    ellipse(sc, color_eye, [int(x0 - r_eye_x), int(y0 - r_eye_y), 
+                            int(2 * r_eye_x), int(2 * r_eye_y)])
+    ellipse(sc, BLC, [int(x0 - r_eye_x), int(y0 - r_eye_y), 
+                      int(2 * r_eye_x), int(2 * r_eye_y)], 1)
+    ellipse(sc, color_pup, [int(x0 - r_pup_x), int(y0 - r_pup_y + dy_pup), 
+                            int(2 * r_pup_x), int(2 * r_pup_y)])
 
 
 def nose(x0, y0, r_nose, color_nose, sc):
+    
     x1 = int(x0)
     y1 = int(y0 + r_nose)
     x2 = int(x0 + np.cos(np.pi / 6) * r_nose)
@@ -97,19 +126,21 @@ def nose(x0, y0, r_nose, color_nose, sc):
     polygon(sc, BLC, [(x1, y1), (x2, y2), (x3, y3)], 1)
 
 
-def face(x0, y0, r_nose, y_nose, w_mouth, h_mouth, r_pup_x, r_pup_y, r_eye_x, r_eye_y, dy_pup, x_eye, y_eye, y_mouth,
-         color_mouth,
-         color_pup, color_eye, color_nose, sc):
+def face(x0, y0, r_nose, y_nose, w_mouth, h_mouth, r_pup_x, r_pup_y, r_eye_x, 
+         r_eye_y, dy_pup, x_eye, y_eye, y_mouth, color_mouth, color_pup, 
+         color_eye, color_nose, sc):
+    
     mouth(int(x0), int(y0 + y_mouth), int(h_mouth), int(w_mouth), color_mouth, sc)
-    eye(int(x0 - x_eye), int(y0 - y_eye), int(r_pup_x), int(r_pup_y), int(r_eye_x), int(r_eye_y), int(dy_pup),
-        color_pup, color_eye, sc)
-    eye(int(x0 + x_eye), int(y0 - y_eye), int(r_pup_x), int(r_pup_y), int(r_eye_x), int(r_eye_y), int(dy_pup),
-        color_pup, color_eye, sc)
+    eye(int(x0 - x_eye), int(y0 - y_eye), int(r_pup_x), int(r_pup_y), 
+        int(r_eye_x), int(r_eye_y), int(dy_pup), color_pup, color_eye, sc)
+    eye(int(x0 + x_eye), int(y0 - y_eye), int(r_pup_x), int(r_pup_y), 
+        int(r_eye_x), int(r_eye_y), int(dy_pup), color_pup, color_eye, sc)
     nose(int(x0), int(y0 + y_nose), int(r_nose), color_nose, sc)
 
 
-def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin, color_border, color_mouth, color_pup, color_nose,
-                  size, sc, x0, y0):
+def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin, 
+                  color_border, color_mouth, color_pup, color_nose, size, sc, x0, y0):
+    
     angle_sh = 70
     angle_pl_sh = 40
     circle(sc, color_t_shirt, [int(0.5 * size + x0), int(1 * size + y0)], int(0.3 * size))
@@ -127,27 +158,34 @@ def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin, color_borde
     ang_rect2(sc, x1, y1, int(0.63 * size), int(0.034 * size), +73, 4, color_border, 1)
     polygon(sc, color_t_shirt, A1)
     polygon(sc, color_border, A1, 1)
+    
     A2 = []
     for i in range(5):
         A2.append((int(x2 - 0.1 * size * np.cos((np.pi / 180) * (angle_sh + 73 * i))),
                    int(y2 - 0.1 * size * np.sin((np.pi / 180) * (angle_sh + 73 * i)))))
+        
     ang_rect2(sc, x2, y2, int(0.63 * size), int(0.034 * size), -73, 3, color_skin)
     ang_rect2(sc, x2, y2, int(0.63 * size), int(0.034 * size), -73, 3, color_border, 1)
     polygon(sc, color_t_shirt, A2)
     polygon(sc, color_border, A2, 1)
-    circle(sc, color_skin, [int(0.5 * size - 0.43 * size + x0), int(0.5 * size - 0.3 * size + y0)], int(0.042 * size))
-    circle(sc, color_border, [int(0.5 * size - 0.43 * size + x0), int(0.5 * size - 0.3 * size + y0)], int(0.042 * size),
-           1)
-    circle(sc, color_skin, [int(0.5 * size + 0.43 * size + x0), int(0.5 * size - 0.3 * size + y0)], int(0.042 * size))
-    circle(sc, color_border, [int(0.5 * size + 0.43 * size + x0), int(0.5 * size - 0.3 * size + y0)], int(0.042 * size),
-           1)
-    hair(int(size * 0.2), int(size * 0.04), 60, 10, int(0.5 * size + x0), int(0.6 * size + y0), sc, color_hair,
-         color_border)
-    face(int(0.5 * size + x0), int(0.6 * size + y0), int(0.02 * size), int(0.02 * size), int(0.23 * size),
-         int(0.08 * size), int(0.012 * size), int(0.009 * size), int(0.048 * size), int(0.045 * size),
-         int(0.005 * size), int(0.065 * size), int(0.045 * size), int(0.06 * size), color_mouth, color_pup, color_eyes,
-         color_nose,
-         sc)
+    circle(sc, color_skin, [int(0.5 * size - 0.43 * size + x0), 
+                            int(0.5 * size - 0.3 * size + y0)], int(0.042 * size))
+    circle(sc, color_border, [int(0.5 * size - 0.43 * size + x0), 
+                              int(0.5 * size - 0.3 * size + y0)], int(0.042 * size), 1)
+    circle(sc, color_skin, [int(0.5 * size + 0.43 * size + x0), 
+                            int(0.5 * size - 0.3 * size + y0)], int(0.042 * size))
+    circle(sc, color_border, [int(0.5 * size + 0.43 * size + x0), 
+                              int(0.5 * size - 0.3 * size + y0)], int(0.042 * size), 1)
+    
+    hair(int(size * 0.2), int(size * 0.04), 60, 10, int(0.5 * size + x0), 
+         int(0.6 * size + y0), sc, color_hair, color_border)
+    
+    face(int(0.5 * size + x0), int(0.6 * size + y0), int(0.02 * size), 
+         int(0.02 * size), int(0.23 * size), int(0.08 * size), 
+         int(0.012 * size), int(0.009 * size), int(0.048 * size), 
+         int(0.045 * size), int(0.005 * size), int(0.065 * size), 
+         int(0.045 * size), int(0.06 * size), color_mouth, color_pup, 
+         color_eyes, color_nose, sc)
 
 
 
@@ -170,11 +208,16 @@ GBL = (100, 133, 255)
 PNK = (233, 0, 237)
 GGR = (171, 191, 171)
 LOR = (255, 215, 0)
+
 screen.fill(WHT)
-boy_next_door(LOR, GGR, DGex3_3.N, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0.015), 0)
+
+boy_next_door(LOR, GGR, DGN, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0.015), 0)
 boy_next_door(PNK, GBL, ORG, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0.885), 0)
-poster(screen, int(SIZE * 0.95), int(SIZE * 0.13), int(SIZE * 1.85), int(SIZE * 0.13), "PYTHON is REALLY AMAZING!",
-       GRN, BLC, BLC)
+poster(screen, int(SIZE * 0.95), int(SIZE * 0.13), int(SIZE * 1.85), int(SIZE * 0.13), 
+       "PYTHON is REALLY AMAZING!", GRN, BLC, BLC)
+
+
+
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
@@ -186,3 +229,6 @@ while not finished:
             finished = True
 
 pygame.quit()
+
+
+
