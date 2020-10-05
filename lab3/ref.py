@@ -3,6 +3,9 @@ import numpy as np
 from pygame.draw import *
 
 
+#Далее  sc  -  screen  -  рабочая поверхность.  SIZE  -  некоторый  
+#параметр  маштабирования.
+
 def ang_rect(sc, x0, y0, w, h, angle, color, w1=0):
     
     '''Заготовка  для  функции  ang_rect2()'''
@@ -30,12 +33,15 @@ def ang_rect(sc, x0, y0, w, h, angle, color, w1=0):
 def ang_rect2(sc, x0, y0, w, h, angle, quarter,
               color, w1=0):
     
-    '''Рисует  прямоугольник.
-       quarter  -  "номер"  вершины.  Нумеруются  с  правой  нижней  против  часовой стрелки.
-       x0,  y0  -  координаты  выбранной вершины.
-       w,  h  -  ширина  и  высота  прямоугольника.
-       angle  -  угол  поворота  вокруг  выбранной вершины по часовой.
-       w1  -  толщина линии.'''
+    '''
+    Рисует  прямоугольник.
+    quarter  -  "номер"  вершины.  Нумеруются  с  правой  нижней  против  
+    часовой стрелки.
+    x0,  y0  -  координаты  выбранной вершины.
+    w,  h  -  ширина  и  высота  прямоугольника.
+    angle  -  угол  поворота  вокруг  выбранной вершины по часовой.
+    w1  -  толщина линии.
+    '''
        
     
     by = 1
@@ -55,9 +61,11 @@ def ang_rect2(sc, x0, y0, w, h, angle, quarter,
 
 def poster(sc, x0, y0, w, h, s, back_col, text_col, color_border):
     
-    '''Рисует  прямоугольный  постер  с  координатами центра  x0,  y0.
+    '''
+    Рисует  прямоугольный  постер  с  координатами центра  x0,  y0.
     Ширина  -  w,  высота  -  h.  s  -  строка текста, который будет на постере.
-    back_col, text_col, color_border  -  цвета  фона,  шрифта  и  границы  постера.'''
+    back_col, text_col, color_border  -  цвета  фона,  шрифта  и  границы  постера.
+    '''
     
     ang_rect(sc, x0, y0, w, h, 0, back_col)
     ang_rect(sc, x0, y0, w, h, 0, color_border, 1)
@@ -68,6 +76,15 @@ def poster(sc, x0, y0, w, h, s, back_col, text_col, color_border):
 
 
 def hair(r_head, r_tr, phi, n, x0, y0, sc, color_fill, color_side):
+    
+    '''
+    r_head  -  радиус  лица.
+    r_tr  -  длина  стороны  треугольника,  который  имитирует  волосы.
+    phi  -  угол  "покрытия"  волосами  головы.
+    n  -  количество  треугольников,  которые  имитируют  волосы.
+    x0,  y0  -  координаты  центра  лица.
+    color_fill  -  цвет волос.
+    '''
     
     for i in range(n):
         alpha = -(90 - phi + (2 * phi * i + phi) / n)
@@ -87,9 +104,11 @@ def hair(r_head, r_tr, phi, n, x0, y0, sc, color_fill, color_side):
 
 def mouth(x0, y0, h_mouth, w_mouth, color, sc):
     
-    '''Рисует  треугольный  рот.  x0,  y0  -  координаты  середины  основания.
+    '''
+    Рисует  треугольный  рот.  x0,  y0  -  координаты  середины  основания.
     h_mouth,  w_mouth  -  высота  и  ширина рта.
-    color  -  цвет  рта.'''
+    color  -  цвет  рта.
+    '''
     
     x1 = x0 + w_mouth / 2
     y1 = y0
@@ -101,10 +120,17 @@ def mouth(x0, y0, h_mouth, w_mouth, color, sc):
     polygon(sc, BLC, [(x1, y1), (x2, y2), (x3, y3)], 1)
 
 
-def eye(x0, y0, r_pup_x, r_pup_y, r_eye_x, r_eye_y, dy_pup, color_pup, color_eye, sc):
+def eye(x0, y0, r_pup_x, r_pup_y, r_eye_x, r_eye_y, dy_pup, color_pup, 
+        color_eye, sc):
     
-    '''Рисует глаз.
-    x0,  y0  -  '''
+    '''
+    Рисует глаз.
+    x0,  y0  -  координаты  центра  глаза.
+    r_pup_x,  r_pup_y  -  ширина  и  высота  зрачка. 
+    dy_pup  -  смещение зрачка относительно центра глаза.
+    r_eye_x,  r_eye_y  -  ширина  и  высота  глаза.
+    color_pup,  color_eye  -  цвет  зрачка  и  "белка".
+    '''
     
     ellipse(sc, color_eye, [int(x0 - r_eye_x), int(y0 - r_eye_y), 
                             int(2 * r_eye_x), int(2 * r_eye_y)])
@@ -115,6 +141,12 @@ def eye(x0, y0, r_pup_x, r_pup_y, r_eye_x, r_eye_y, dy_pup, color_pup, color_eye
 
 
 def nose(x0, y0, r_nose, color_nose, sc):
+    
+    '''
+    x0,  y0  -  координаты  центра  носа.
+    r_nose  -  "радиус"  носа.
+    color_nose  -  цвет носа.
+    '''
     
     x1 = int(x0)
     y1 = int(y0 + r_nose)
@@ -130,6 +162,12 @@ def face(x0, y0, r_nose, y_nose, w_mouth, h_mouth, r_pup_x, r_pup_y, r_eye_x,
          r_eye_y, dy_pup, x_eye, y_eye, y_mouth, color_mouth, color_pup, 
          color_eye, color_nose, sc):
     
+    '''
+    Функция  рисует  лицо,  состоящее  из  рта,  глаз  и  носа.
+    '''
+    
+    #Рисование  отдельных  частей  лица  описано  выше.
+    
     mouth(int(x0), int(y0 + y_mouth), int(h_mouth), int(w_mouth), color_mouth, sc)
     eye(int(x0 - x_eye), int(y0 - y_eye), int(r_pup_x), int(r_pup_y), 
         int(r_eye_x), int(r_eye_y), int(dy_pup), color_pup, color_eye, sc)
@@ -141,9 +179,16 @@ def face(x0, y0, r_nose, y_nose, w_mouth, h_mouth, r_pup_x, r_pup_y, r_eye_x,
 def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin, 
                   color_border, color_mouth, color_pup, color_nose, size, sc, x0, y0):
     
+    '''
+    Функция  рисует  парнишку.  Ниже  описано  рисование  рук,  лица,  волос,
+    футболки.
+    '''
+    
+    
     angle_sh = 70
     angle_pl_sh = 40
-    circle(sc, color_t_shirt, [int(0.5 * size + x0), int(1 * size + y0)], int(0.3 * size))
+    
+    circle(sc, color_t_shirt, [int(0.5 * size + x0), int(1 * size + y0)], int(0.3 * size))    #Рисование  футболки.
     circle(sc, color_skin, [int(0.5 * size + x0), int(0.6 * size + y0)], int(0.2 * size))
     x1 = int(0.5 * size - 0.3 * size * np.cos((np.pi / 180) * angle_pl_sh) + x0)
     y1 = int(size - 0.3 * size * np.sin((np.pi / 180) * angle_pl_sh) + y0)
@@ -154,9 +199,9 @@ def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin,
         A1.append((int(x1 + 0.1 * size * np.cos((np.pi / 180) * (angle_sh + 73 * i))),
                    int(y1 - 0.1 * size * np.sin((np.pi / 180) * (angle_sh + 73 * i)))))
 
-    ang_rect2(sc, x1, y1, int(0.63 * size), int(0.034 * size), +73, 4, color_skin)
+    ang_rect2(sc, x1, y1, int(0.63 * size), int(0.034 * size), +73, 4, color_skin)    #Рисование  рук.
     ang_rect2(sc, x1, y1, int(0.63 * size), int(0.034 * size), +73, 4, color_border, 1)
-    polygon(sc, color_t_shirt, A1)
+    polygon(sc, color_t_shirt, A1)    #Рисование  рукавов  футболки.
     polygon(sc, color_border, A1, 1)
     
     A2 = []
@@ -164,11 +209,11 @@ def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin,
         A2.append((int(x2 - 0.1 * size * np.cos((np.pi / 180) * (angle_sh + 73 * i))),
                    int(y2 - 0.1 * size * np.sin((np.pi / 180) * (angle_sh + 73 * i)))))
         
-    ang_rect2(sc, x2, y2, int(0.63 * size), int(0.034 * size), -73, 3, color_skin)
+    ang_rect2(sc, x2, y2, int(0.63 * size), int(0.034 * size), -73, 3, color_skin)    #Рисование  рук.
     ang_rect2(sc, x2, y2, int(0.63 * size), int(0.034 * size), -73, 3, color_border, 1)
-    polygon(sc, color_t_shirt, A2)
+    polygon(sc, color_t_shirt, A2)    #Рисование  рукавов  футболки.
     polygon(sc, color_border, A2, 1)
-    circle(sc, color_skin, [int(0.5 * size - 0.43 * size + x0), 
+    circle(sc, color_skin, [int(0.5 * size - 0.43 * size + x0),     #Рисование  ладошек.
                             int(0.5 * size - 0.3 * size + y0)], int(0.042 * size))
     circle(sc, color_border, [int(0.5 * size - 0.43 * size + x0), 
                               int(0.5 * size - 0.3 * size + y0)], int(0.042 * size), 1)
@@ -177,13 +222,13 @@ def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin,
     circle(sc, color_border, [int(0.5 * size + 0.43 * size + x0), 
                               int(0.5 * size - 0.3 * size + y0)], int(0.042 * size), 1)
     
-    hair(int(size * 0.2), int(size * 0.04), 60, 10, int(0.5 * size + x0), 
+    hair(int(size * 0.2), int(size * 0.04), 60, 10, int(0.5 * size + x0),                   
          int(0.6 * size + y0), sc, color_hair, color_border)
     
     face(int(0.5 * size + x0), int(0.6 * size + y0), int(0.02 * size), 
          int(0.02 * size), int(0.23 * size), int(0.08 * size), 
          int(0.012 * size), int(0.009 * size), int(0.048 * size), 
-         int(0.045 * size), int(0.005 * size), int(0.065 * size), 
+         int(0.045 * size), int(0.005 * size), int(0.065 * size),       
          int(0.045 * size), int(0.06 * size), color_mouth, color_pup, 
          color_eyes, color_nose, sc)
 
@@ -194,6 +239,8 @@ pygame.init()
 FPS = 30
 SIZE = 600
 screen = pygame.display.set_mode((int(1.9 * SIZE), SIZE))
+
+#Описание  всех  используемых  цветов.
 
 WHT = (255, 255, 255)
 YLW = (255, 255, 0)
@@ -211,10 +258,12 @@ LOR = (255, 215, 0)
 
 screen.fill(WHT)
 
+#Рисование  2  парнишек  и  плаката  с  надписью.
+
 boy_next_door(LOR, GGR, DGN, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0.015), 0)
 boy_next_door(PNK, GBL, ORG, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0.885), 0)
 poster(screen, int(SIZE * 0.95), int(SIZE * 0.13), int(SIZE * 1.85), int(SIZE * 0.13), 
-       "PYTHON is REALLY AMAZING!", GRN, BLC, BLC)
+       "PYTHON is AMAZING!", GRN, BLC, BLC)                                 
 
 
 
