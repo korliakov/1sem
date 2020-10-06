@@ -34,7 +34,7 @@ def click(event):
     global s
     if event.type == pygame.MOUSEBUTTONDOWN:
         x0, y0 = event.pos
-        if (x-x0)**2+(y-y0) <= r**2:
+        if (x-x0)**2+(y-y0)**2 <= r**2:
             s += 1
         
 
