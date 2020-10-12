@@ -8,7 +8,14 @@ from pygame.draw import *
 
 def ang_rect(sc, x0, y0, w, h, angle, color, w1=0):
     
-    '''Заготовка  для  функции  ang_rect2()'''
+    '''
+    Рисует  прямоугольник.
+    x0,  y0  -  координаты  выбранной вершины.
+    w,  h  -  ширина  и  высота  прямоугольника.
+    angle  -  угол  поворота  вокруг  центра  по часовой.
+    w1  -  толщина линии.
+    sc  -  это  screen
+    '''
     
     x1 = x0 + w * 0.5 * np.cos((np.pi / 180) * angle) - h * 0.5 * \
     np.sin((np.pi / 180) * angle)
@@ -41,6 +48,7 @@ def ang_rect2(sc, x0, y0, w, h, angle, quarter,
     w,  h  -  ширина  и  высота  прямоугольника.
     angle  -  угол  поворота  вокруг  выбранной вершины по часовой.
     w1  -  толщина линии.
+    sc  -  это  screen  
     '''
        
     
@@ -65,6 +73,7 @@ def poster(sc, x0, y0, w, h, s, back_col, text_col, color_border):
     Рисует  прямоугольный  постер  с  координатами центра  x0,  y0.
     Ширина  -  w,  высота  -  h.  s  -  строка текста, который будет на постере.
     back_col, text_col, color_border  -  цвета  фона,  шрифта  и  границы  постера.
+    sc  -  это  screen
     '''
     
     ang_rect(sc, x0, y0, w, h, 0, back_col)
@@ -84,6 +93,7 @@ def hair(r_head, r_tr, phi, n, x0, y0, sc, color_fill, color_side):
     n  -  количество  треугольников,  которые  имитируют  волосы.
     x0,  y0  -  координаты  центра  лица.
     color_fill  -  цвет волос.
+    sc  -  это  screen
     '''
     
     for i in range(n):
@@ -108,6 +118,7 @@ def mouth(x0, y0, h_mouth, w_mouth, color, sc):
     Рисует  треугольный  рот.  x0,  y0  -  координаты  середины  основания.
     h_mouth,  w_mouth  -  высота  и  ширина рта.
     color  -  цвет  рта.
+    sc  -  это  screen
     '''
     
     x1 = x0 + w_mouth / 2
@@ -130,6 +141,7 @@ def eye(x0, y0, r_pup_x, r_pup_y, r_eye_x, r_eye_y, dy_pup, color_pup,
     dy_pup  -  смещение зрачка относительно центра глаза.
     r_eye_x,  r_eye_y  -  ширина  и  высота  глаза.
     color_pup,  color_eye  -  цвет  зрачка  и  "белка".
+    sc  -  это  screen
     '''
     
     ellipse(sc, color_eye, [int(x0 - r_eye_x), int(y0 - r_eye_y), 
@@ -146,6 +158,7 @@ def nose(x0, y0, r_nose, color_nose, sc):
     x0,  y0  -  координаты  центра  носа.
     r_nose  -  "радиус"  носа.
     color_nose  -  цвет носа.
+    sc  -  это  screen
     '''
     
     x1 = int(x0)
@@ -164,6 +177,7 @@ def face(x0, y0, r_nose, y_nose, w_mouth, h_mouth, r_pup_x, r_pup_y, r_eye_x,
     
     '''
     Функция  рисует  лицо,  состоящее  из  рта,  глаз  и  носа.
+    sc  -  это  screen
     '''
     
     #Рисование  отдельных  частей  лица  описано  выше.
@@ -182,6 +196,7 @@ def boy_next_door(color_hair, color_eyes, color_t_shirt, color_skin,
     '''
     Функция  рисует  парнишку.  Ниже  описано  рисование  рук,  лица,  волос,
     футболки.
+    sc  -  это  screen
     '''
     
     
@@ -264,6 +279,7 @@ boy_next_door(LOR, GGR, DGN, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0
 boy_next_door(PNK, GBL, ORG, SKN, BLC, RED, BLC, BRW, SIZE, screen, int(SIZE * 0.885), 0)
 poster(screen, int(SIZE * 0.95), int(SIZE * 0.13), int(SIZE * 1.85), int(SIZE * 0.13), 
        "PYTHON is AMAZING!", GRN, BLC, BLC)                                 
+
 
 
 
