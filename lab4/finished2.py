@@ -150,11 +150,16 @@ while not finished:
             move_balls_and_squares()
             
             
-            
-            
+print('Your final result: ', score)            
+
+f = open('Table.txt', 'a')
+print('Enter your name: ')
+name = input()
+f.write(name + ' - ' + str(score) + '\n')
+f.close()          
     
     
 
     
-print('Your final result: ', score)
+
 pygame.quit()
